@@ -55,7 +55,7 @@ export const rightsidebarLinks = [
 export const pageTitles = [
   {
     url: "/",
-    title: "MusikFeed",
+    title: "M-Feed",
   },
   {
     url: "/edit-profile",
