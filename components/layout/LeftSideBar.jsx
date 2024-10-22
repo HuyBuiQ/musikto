@@ -6,7 +6,7 @@ import Link from "next/link"
 
 const LeftSideBar = () => {
   return (
-    <div className='h-screen left-0 top-0 sticky overflow-auto px-10 py-6 flex flex-col gap-6 max-md:hidden custom-scrollbar'>
+    <div className='h-screen left-0 top-0 sticky overflow-auto px-10 py-6 flex flex-col gap-6 custom-scrollbar'>
       <div >
         <div className='flex flex-col gap-4 text-black'>
 

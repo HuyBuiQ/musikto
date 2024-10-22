@@ -21,14 +21,14 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.className} bg-light-1`}>
-          <main className="flex flex-col">
+          <main className="flex flex-col min-h-screen">
           <Topbar />
-          <div className="flex flex-row">
-            <div className="basis-1/4"><LeftSideBar /></div>
-            <div className="basis-1/2 bg-purple-1"><MainContainer>
+          <div className="flex flex-col md:flex-row flex-grow">
+            <div className="hidden md:basis-1/4 md:block"><LeftSideBar /></div>
+            <div className="basis-full md:basis-1/2 bg-purple-1"><MainContainer>
             {children}
             </MainContainer>  </div>
-            <div className="basis-1/4"><RightSideBar /></div>
+            <div className=" hidden md:basis-1/4 md:block"><RightSideBar /></div>
             
            
                  
