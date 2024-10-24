@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           <Topbar />
           <div className="flex flex-col md:flex-row flex-grow">
             <div className="hidden md:basis-1/4 md:block"><LeftSideBar /></div>
-            <div className="basis-full md:basis-1/2 bg-purple-1"><MainContainer>
+            <div className="basis-full md:basis-1/2"><MainContainer>
             {children}
             </MainContainer>  </div>
             <div className=" hidden md:basis-1/4 md:block"><RightSideBar /></div>

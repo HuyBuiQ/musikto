@@ -1,15 +1,20 @@
-import { connectToDB } from "../../../../lib/mongodb/mongoose"
-import User from "../../../../lib/models/User"
+import { connectToDB } from "../../../../lib/mongodb/mongoose";
+import User from "../../../../lib/models/User";
 
-export const GET = async(req,{params})=> {
-    try {
-        await connectToDB()
-        const user = await User.findOne({clerkId:params.id}).populate("posts savedPosts likedPosts followers following").exec()
-        return new Response(JSON.stringify(user),{status:200})
-    } catch (err) 
-    {
-        console.error(err)
-        return new Response("Failed to get user",{status:500})
-        
-    }
-}
+export const GET = async (req, res) => {
+  try {
+    await connectToDB();
+
+    // Await `req.query.id` to ensure the ID is available before using it
+    const id = await req.query.id;
+
+    const user = await User.findOne({ clerkId: id })
+      .populate("posts savedPosts likedPosts followers following")
+      .exec();
+
+    return res.status(200).json(user); // Use res.json for JSON responses
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json("Failed to get user");
+  }
+};
