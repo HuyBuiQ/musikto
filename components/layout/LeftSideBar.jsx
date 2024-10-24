@@ -8,25 +8,7 @@ import Loader from "../Loader"
 
 
 const LeftSideBar = () => {
-  const {user, isLoaded} = useUser()
-  
- 
-  const [loading, setLoading]=useState(true)
-  const [userData,setUserData]=useState({})
 
-  const getUser = async () =>{
-    const response= await fetch(`/api/user/${user.id}`)
-    const data = await response.json()
-    setUserData(data)
-    setLoading(false)
-  }
-  useEffect(() => {
-    if (user) {
-      getUser();
-    }
-  }, [user]);
-
-  
   return (
     <div className='h-screen left-0 top-0 sticky overflow-auto px-10 py-6 flex flex-col gap-6 custom-scrollbar'>
       <div >
