@@ -1,17 +1,37 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Logout, Search } from '@mui/icons-material'
 import { SignedIn, SignOutButton, useUser } from '@clerk/nextjs'
+import Loader from "../Loader"
+
+
+
 
 
 const Topbar = () => {
-  return (
+  const { user, isLoaded } = useUser()
+  const [loading, setLoading] = useState(true)
+  const [userData, setUserData] = useState({})
+
+
+  const getUser = async () => {
+    const response = await fetch(`/api/user/${user.id}`)
+    const data = await response.json()
+    setUserData(data)
+    setLoading(false)
+  }
+  useEffect(() => {
+    getUser()
+  }, [user])
+
+
+  return loading || !isLoaded ? <Loader /> : (
     <div className='flex w-full justify-between px-4 py-4 border-b-2'>
       <div className='flex justify-between gap-2'>
         <Link href={"/"}>
-          <Image src="icons/musikto_icon.svg" width={50} height={50} />
+          <Image src={userData?.profilePhoto} width={50} height={50} />
 
         </Link>
         <div className='flex search-bar mx-4'>
@@ -35,7 +55,7 @@ const Topbar = () => {
         <SignedIn>
           <SignOutButton>
             <div className="flex gap-4 px-4 md:hidden items-center">
-              <Logout sx={{fontSize:"32px"}}/>
+              <Logout sx={{ fontSize: "32px" }} />
             </div>
 
 
