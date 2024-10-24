@@ -9,7 +9,7 @@ import Loader from "../Loader"
 
 const LeftSideBar = () => {
   const {user, isLoaded} = useUser()
-  console.log(user)
+  
  
   const [loading, setLoading]=useState(true)
   const [userData,setUserData]=useState({})

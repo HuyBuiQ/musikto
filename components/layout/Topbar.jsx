@@ -1,4 +1,5 @@
 "use client"
+
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -7,25 +8,13 @@ import { SignedIn, SignOutButton, useUser } from '@clerk/nextjs'
 
 
 const Topbar = () => {
-  const { user, isLoaded } = useUser()
-  const [loading, setLoading] = useState(true)
-  const [userData, setUserData] = useState({})
-
-  const getUser = async () => {
-    const response = await fetch(`/api/user/${user.id}`)
-    const data = await response.json()
-    setUserData(data)
-    setLoading(false)
-  }
-  useEffect(() => {
-    if (user) {
-      getUser();
-    }
-  }, [user]);
-
+  const {user} = useUser();
+ 
+  
 
   return (
     <div className='flex w-full justify-between px-4 py-4 border-b-2'>
+    
       <div className='flex justify-between gap-2'>
         <Link href={"/"}>
           <Image src="icons/musikto_icon.svg" width={50} height={50} alt='musikto logo' />
@@ -45,10 +34,11 @@ const Topbar = () => {
         </div>
       </div>
       <div className='flex gap-3'>
-        <Link href={"/profile"}>
-          <Image src={user?.profilePhoto} width={50} height={50} className='rounded-full' />
+        <Link href={"/"}>
+          <Image src={user?.imageUrl} width={50} height={50} className='rounded-full' alt='musikto logo' />
 
         </Link>
+        
         <SignedIn>
           <SignOutButton>
             <div className="flex gap-4 px-4 md:hidden items-center">
