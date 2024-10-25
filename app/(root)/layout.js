@@ -1,5 +1,6 @@
 
-import { ClerkProvider,useAuth } from "@clerk/nextjs"
+import { ClerkProvider,useAuth, RedirectToSignIn } from "@clerk/nextjs"
+import { auth } from '@clerk/nextjs/server'
 
 
 import { Inter } from "next/font/google"
@@ -20,7 +21,17 @@ export const metadata = {
 }
 const inter = Inter({ subsets: ["latin"] })
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  
+
+  const { userId } = await auth(); 
+  if (!userId) {
+    return <ClerkProvider>
+      <html><body><RedirectToSignIn /></body></html>
+      
+      </ClerkProvider>; // Chuyển hướng đến trang đăng nhập nếu không có userId
+  } else {}
+  
   return (
     <ClerkProvider>
       <html lang="en">
