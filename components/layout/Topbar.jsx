@@ -34,10 +34,11 @@ const Topbar = () => {
         </div>
       </div>
       <div className='flex gap-3'>
-        <Link href={"/"}>
+        <SignedIn><Link href={"/"}>
           <Image src={user?.imageUrl} width={50} height={50} className='rounded-full' alt='musikto logo' />
 
-        </Link>
+        </Link></SignedIn>
+        
         
         <SignedIn>
           <SignOutButton>

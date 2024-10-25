@@ -1,41 +1,44 @@
 'use client';
 
 import { useUser } from '@clerk/nextjs';
-import { HiOutlinePhotograph } from 'react-icons/hi';
+import { HiOutlinePhotograph, HiOutlineMusicNote } from 'react-icons/hi';
 import { useRef, useState, useEffect } from 'react';
-import { app } from '../firebase';
+import { app } from '../../firebase';
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
+import { CloudUploadOutlined } from '@mui/icons-material';
 
 export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
-  const [imageFileUrl, setImageFileUrl] = useState(null);
+  const [fileUrl, setFileUrl] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imageFileUplaoding, setImageFileUploading] = useState(false);
+  const [fileUploading, setFileUploading] = useState(false);
   const [text, setText] = useState('');
   const [postLoading, setPostLoading] = useState(false);
-  const imagePickRef = useRef(null);
+  const [fileType, setFileType] = useState(null);
+  const filePickRef = useRef(null);
 
-  const addImageToPost = (e) => {
+  const addFileToPost = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setImageFileUrl(URL.createObjectURL(file));
+      setFileUrl(URL.createObjectURL(file));
+      setFileType(file.type.startsWith('audio') ? 'audio' : 'image');
     }
   };
 
   useEffect(() => {
     if (selectedFile) {
-      uploadImageToStorage();
+      uploadFileToStorage();
     }
   }, [selectedFile]);
 
-  const uploadImageToStorage = async () => {
-    setImageFileUploading(true);
+  const uploadFileToStorage = async () => {
+    setFileUploading(true);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + '-' + selectedFile.name;
     const storageRef = ref(storage, fileName);
@@ -49,14 +52,14 @@ export default function Input() {
       },
       (error) => {
         console.log(error);
-        setImageFileUploading(false);
+        setFileUploading(false);
         setSelectedFile(null);
-        setImageFileUrl(null);
+        setFileUrl(null);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageFileUrl(downloadURL);
-          setImageFileUploading(false);
+          setFileUrl(downloadURL);
+          setFileUploading(false);
         });
       }
     );
@@ -64,7 +67,7 @@ export default function Input() {
 
   const handleSubmit = async () => {
     setPostLoading(true);
-    const response = await fetch('/api/post/create', {
+    await fetch('/api/post/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,13 +78,14 @@ export default function Input() {
         username: user.username,
         text,
         profileImg: user.imageUrl,
-        image: imageFileUrl,
+        file: fileUrl,
+        fileType,
       }),
     });
     setPostLoading(false);
     setText('');
     setSelectedFile(null);
-    setImageFileUrl(null);
+    setFileUrl(null);
     location.reload();
   };
 
@@ -90,48 +94,50 @@ export default function Input() {
   }
 
   return (
-    <div className='flex border-b border-gray-200 p-3 space-x-3 w-full'>
-      <img
-        src={user.imageUrl}
-        alt='user-img'
-        className='h-11 w-11 rounded-full cursor-pointer hover:brightness-95 object-cover'
-      />
-      <div className='w-full divide-y divide-gray-200'>
+    <div className='flex border-gray-200 border-2 p-4 space-x-3 w-full rounded-lg'>
+
+      <div className='w-full '>
         <textarea
-          className='w-full border-none outline-none tracking-wide min-h-[50px] text-gray-700 '
-          placeholder='Whats happening'
+          className='w-full border-none outline-none tracking-wide min-h-[200px] text-gray-700 mb-4 '
+          placeholder='What’s happening?'
           rows='2'
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></textarea>
+
         {selectedFile && (
-          <img
-            onClick={() => {
-              setSelectedFile(null);
-              setImageFileUrl(null);
-            }}
-            src={imageFileUrl}
-            alt='selected-img'
-            className={`w-full max-h-[250px] object-cover cursor-pointer ${
-              imageFileUplaoding ? 'animate-pulse' : ''
-            }`}
-          />
+          fileType === 'image' ? (
+            <img
+              onClick={() => {
+                setSelectedFile(null);
+                setFileUrl(null);
+              }}
+              src={fileUrl}
+              alt='selected-img'
+              className={`w-full max-h-[200px] object-cover cursor-pointer ${fileUploading ? 'animate-pulse' : ''
+                }`}
+            />
+          ) : (
+            <audio controls src={fileUrl} className='mt-2 w-full' />
+          )
         )}
-        <div className='flex items-center justify-between pt-2.5'>
-          <HiOutlinePhotograph
-            className='h-10 w-10 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer'
-            onClick={() => imagePickRef.current.click()}
+
+        <div className='flex items-center justify-between pt-2.5 m-4'>
+
+          <CloudUploadOutlined
+            className='h-10 w-10 p-2 text-black hover:bg-sky-100 rounded-full cursor-pointer'
+            onClick={() => filePickRef.current.click()}
           />
           <input
             type='file'
-            ref={imagePickRef}
-            accept='image/*'
+            ref={filePickRef}
+            accept='image/*,audio/*'
             hidden
-            onChange={addImageToPost}
+            onChange={addFileToPost}
           />
           <button
-            disabled={text.trim() === '' || postLoading || imageFileUplaoding}
-            className='bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
+            disabled={text.trim() === '' || postLoading || fileUploading}
+            className='bg-black-1 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
             onClick={handleSubmit}
           >
             Post

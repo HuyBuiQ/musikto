@@ -16,10 +16,7 @@ const LeftSideBar = () => {
 
           <Menu />
           <hr />
-          <SignedOut>
-
-            <SignInButton><p>Log in</p></SignInButton>
-          </SignedOut>
+          
           <SignedIn>
             <div className="flex gap-4 py-2 px-3">
               <UserButton />
