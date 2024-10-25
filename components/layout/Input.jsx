@@ -77,7 +77,7 @@ export default function Input() {
         name: user.fullName,
         username: user.username,
         text,
-        profileImg: user.imageUrl,
+        profilePhoto: user.imageUrl,
         file: fileUrl,
         fileType,
       }),
@@ -87,6 +87,7 @@ export default function Input() {
     setSelectedFile(null);
     setFileUrl(null);
     location.reload();
+    console.log("body",user.publicMetadata.userMongoId)
   };
 
   if (!isSignedIn || !isLoaded) {
