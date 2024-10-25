@@ -1,4 +1,7 @@
-import { ClerkProvider } from "@clerk/nextjs"
+
+import { ClerkProvider,useAuth } from "@clerk/nextjs"
+
+
 import { Inter } from "next/font/google"
 import "../globals.css"
 import LeftSideBar from "../../components/layout/LeftSideBar"
