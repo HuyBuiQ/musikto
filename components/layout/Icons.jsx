@@ -68,9 +68,28 @@ export default function Icons({ post }) {
 
   return (
     <div className='flex justify-start gap-5 p-2 text-gray-500'>
+      
+      <div className='flex items-center'>
+        {isLiked ? (
+          <HiHeart
+            onClick={likePost}
+            className='h-10 w-10 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 text-red-600 hover:text-red-500 hover:bg-red-100'
+          />
+        ) : (
+          <HiOutlineHeart
+            onClick={likePost}
+            className='h-10 w-10 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100'
+          />
+        )}
+        {likes.length > 0 && (
+          <span className={`text-xs ${isLiked && 'text-red-600'}`}>
+            {likes.length}
+          </span>
+        )}
+      </div>
       <div className='flex items-center'>
         <HiOutlineChat
-          className='h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-sky-500 hover:bg-sky-100'
+          className='h-10 w-10 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-black-2 hover:bg-light-4'
           onClick={() => {
             if (!user) {
               router.push('/sign-in');
@@ -84,28 +103,10 @@ export default function Icons({ post }) {
           <span className='text-xs'>{post.comments.length}</span>
         )}
       </div>
-      <div className='flex items-center'>
-        {isLiked ? (
-          <HiHeart
-            onClick={likePost}
-            className='h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 text-red-600 hover:text-red-500 hover:bg-red-100'
-          />
-        ) : (
-          <HiOutlineHeart
-            onClick={likePost}
-            className='h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100'
-          />
-        )}
-        {likes.length > 0 && (
-          <span className={`text-xs ${isLiked && 'text-red-600'}`}>
-            {likes.length}
-          </span>
-        )}
-      </div>
       {user && user.publicMetadata.userMongoId === post.user && (
         <HiOutlineTrash
           onClick={deletePost}
-          className='h-8 w-8 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100'
+          className='h-10 w-10 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100'
         />
       )}
     </div>
