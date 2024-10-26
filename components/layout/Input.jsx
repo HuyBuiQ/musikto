@@ -78,8 +78,8 @@ export default function Input() {
         username: user.username,
         text,
         profilePhoto: user.imageUrl,
-        file: fileUrl,
-        fileType,
+        image: fileUrl,
+        filetype:fileType,
       }),
     });
     setPostLoading(false);
@@ -87,7 +87,7 @@ export default function Input() {
     setSelectedFile(null);
     setFileUrl(null);
     location.reload();
-    console.log("body",user.publicMetadata.userMongoId)
+    // console.log(fileUrl)
   };
 
   if (!isSignedIn || !isLoaded) {

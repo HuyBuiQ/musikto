@@ -2,7 +2,7 @@
 import { ClerkProvider, useAuth, RedirectToSignIn } from "@clerk/nextjs"
 import { auth } from '@clerk/nextjs/server'
 
-
+import SessionWrapper from "../../components/layout/SessionWrapper"
 import { Inter } from "next/font/google"
 import "../globals.css"
 import LeftSideBar from "../../components/layout/LeftSideBar"
@@ -10,6 +10,7 @@ import RightSideBar from "../../components/layout/RightSideBar"
 import Topbar from "../../components/layout/Topbar"
 import MainContainer from "../../components/layout/MainContainer"
 import BottomBar from "../../components/layout/BottomBar"
+
 
 
 
@@ -34,6 +35,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <ClerkProvider>
+      <SessionWrapper>
       <html lang="en">
         <body className={`${inter.className} bg-light-1`}>
           <main className="flex flex-col min-h-screen">
@@ -54,7 +56,7 @@ export default async function RootLayout({ children }) {
           </main>
 
         </body>
-      </html>
+      </html></SessionWrapper>
     </ClerkProvider>
   )
 }
