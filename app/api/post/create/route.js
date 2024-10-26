@@ -7,7 +7,9 @@ export const POST = async (req) => {
   try {
     await connectToDB();
     const data = await req.json();
-    // console.log("data:",data)
+    console.log("data đây:",data)
+    console.log("filetype",data.fileType)
+    console.log("username:",data.username)
 
     if (!user || user.publicMetadata.userMongoId !== data.userMongoId) {
       return new Response('Unauthorized', {
@@ -20,9 +22,12 @@ export const POST = async (req) => {
       username: data.username,
       text: data.text,
       profilePhoto: data.profilePhoto,
+      fileType: data.fileType,
       image: data.image,
+      
     });
     await newPost.save();
+    // console.log("newPOST",newPost)
     return new Response(JSON.stringify(newPost), {
       status: 200,
     });

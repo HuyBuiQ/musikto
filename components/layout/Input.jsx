@@ -79,7 +79,7 @@ export default function Input() {
         text,
         profilePhoto: user.imageUrl,
         image: fileUrl,
-        filetype:fileType,
+        fileType,
       }),
     });
     setPostLoading(false);
@@ -87,7 +87,7 @@ export default function Input() {
     setSelectedFile(null);
     setFileUrl(null);
     location.reload();
-    // console.log(fileUrl)
+    // console.log(fileType)
   };
 
   if (!isSignedIn || !isLoaded) {

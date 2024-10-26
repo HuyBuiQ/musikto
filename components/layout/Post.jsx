@@ -32,7 +32,11 @@ export default function Post({ post }) {
           <p className='text-gray-800 text-sm my-3 w-full'>{post?.text}</p>
         </Link>
         <Link href={`/posts/${post?._id}`}>
-          <img src={post?.image} className='rounded-2xl mr-2' />
+        {post?.fileType === 'image' ? (
+            <img src={post?.image} alt="post-img" className='rounded-2xl mr-2' />
+          ) : post?.fileType === 'audio' ? (
+            <audio controls src={post?.image} className='w-full mt-3' />
+          ) : null}
         </Link>
         <Icons post={post} id={post._id} />
       </div>
