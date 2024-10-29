@@ -14,7 +14,7 @@ export default async function Home() {
     console.error('Error fetching posts:', error);
   }
   return (
-    <div className='min-h-screen max-w-xl mx-auto border-r border-l'>      
+    <div className='min-h-screen max-w-xl mx-auto border-r border-l border-'>      
       <Feed data={data} />
     </div>
   );

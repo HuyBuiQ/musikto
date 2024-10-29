@@ -7,9 +7,7 @@ export const POST = async (req) => {
   try {
     await connectToDB();
     const data = await req.json();
-    console.log("data đây:",data)
-    console.log("filetype",data.fileType)
-    console.log("username:",data.username)
+    
 
     if (!user || user.publicMetadata.userMongoId !== data.userMongoId) {
       return new Response('Unauthorized', {

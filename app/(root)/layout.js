@@ -10,7 +10,7 @@ import RightSideBar from "../../components/layout/RightSideBar"
 import Topbar from "../../components/layout/Topbar"
 import MainContainer from "../../components/layout/MainContainer"
 import BottomBar from "../../components/layout/BottomBar"
-
+import CommentModal from "../../components/comments/CommentModal"
 
 
 
@@ -46,6 +46,7 @@ export default async function RootLayout({ children }) {
                 {children}
               </MainContainer>  </div>
               <div className=" hidden md:basis-1/4 md:block"><RightSideBar /></div>
+              <CommentModal />
 
 
 

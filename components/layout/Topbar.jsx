@@ -17,7 +17,7 @@ const Topbar = () => {
     
       <div className='flex justify-between gap-2'>
         <Link href={"/"}>
-          <Image src="icons/musikto_icon.svg" width={50} height={50} alt='musikto logo' />
+          <Image src="/icons/musikto_icon.svg" width={50} height={50} alt='musikto logo' />
 
         </Link>
         <div className='flex search-bar mx-4'>
