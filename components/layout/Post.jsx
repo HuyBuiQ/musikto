@@ -21,13 +21,18 @@ export default function Post({ post }) {
             </h4>
             <span className='text-xs truncate max-w-32'>@{post?.username}</span>
             {/* add dot space here */}
-            <span className='text-xl text-gray-500'>·</span>
-            <span className='text-xs text-gray-500 flex-1 truncate max-w-32'>
+            <span className='text-xl hidden sm:flex text-gray-500'>·</span>
+            <span className='hidden sm:flex text-xs text-gray-500 truncate max-w-32'>
               {moment(post?.createdAt).fromNow()}
             </span>
           </div>
+          
+          
           {/* <HiDotsHorizontal className='text-sm' /> */}
         </div>
+        <span className='text-xs text-gray-500 flex-1 truncate max-w-32 sm:hidden'>
+              {moment(post?.createdAt).fromNow()}
+            </span>
         <Link href={`/posts/${post?._id}`}>
           <p className='text-gray-800 text-sm my-3 w-full'>{post?.text}</p>
         </Link>
