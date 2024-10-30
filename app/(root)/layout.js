@@ -36,29 +36,24 @@ export default async function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <SessionWrapper>
-      <html lang="en">
-        <body className={`${inter.className} bg-light-1`}>
-          <main className="flex flex-col min-h-screen">
-            <div className=""><Topbar /></div>
-            
-            <div className="flex flex-col md:flex-row flex-grow ">
-              <div className="hidden md:basis-1/4 md:block"><LeftSideBar /></div>
-              <div className="basis-full md:basis-1/2"><MainContainer>
-                {children}
-              </MainContainer>  </div>
-              <div className=" hidden md:basis-1/4 md:block"><RightSideBar /></div>
-              <CommentModal />
+        <html lang="en">
+          <body className={`${inter.className} bg-light-1`}>
+            <main className="flex flex-col min-h-screen">
+              <div className=""><Topbar /></div>
 
+              <div className="flex flex-col md:flex-row flex-grow ">
+                <div className="hidden md:basis-1/4 md:block"><LeftSideBar /></div>
+                <div className="basis-full md:basis-1/2"><MainContainer>
+                  {children}
+                </MainContainer>  </div>
+                <div className=" hidden md:basis-1/4 md:block"><RightSideBar /></div>
+                <CommentModal />
+              </div>
+              <BottomBar />
+            </main>
 
-
-
-
-            </div>
-            <BottomBar />
-          </main>
-
-        </body>
-      </html></SessionWrapper>
+          </body>
+        </html></SessionWrapper>
     </ClerkProvider>
   )
 }

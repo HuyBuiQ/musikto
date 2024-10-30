@@ -10,7 +10,7 @@ export default function Post({ post }) {
         <img
           src={post?.profilePhoto}
           alt='user-img'
-          className='h-11 w-11 rounded-full mr-4'
+          className='h-8 w-8 rounded-full mr-4 sm:h-11 sm:w-11'
         />
       </Link>
       <div className='flex-1'>
@@ -26,7 +26,7 @@ export default function Post({ post }) {
               {moment(post?.createdAt).fromNow()}
             </span>
           </div>
-          <HiDotsHorizontal className='text-sm' />
+          {/* <HiDotsHorizontal className='text-sm' /> */}
         </div>
         <Link href={`/posts/${post?._id}`}>
           <p className='text-gray-800 text-sm my-3 w-full'>{post?.text}</p>
