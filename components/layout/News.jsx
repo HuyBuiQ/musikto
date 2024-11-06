@@ -8,11 +8,24 @@ export default function News() {
 
     const [articleNum, setArticleNum] = useState(3);
     const keywords = [
-        "EDM", "c9c890398e5f4107", "music", "album", "guitar", "drum", "Hardwell", "DJ",
+        "EDM", "c9c890398e5f4107", "music", "album", "guitar", "drum", "Hardwell", "DJ","album", "artist", "band", "concert", "music", "guitar", 
+    "song", "track", "lyrics", "performance", "stage", "melody", 
+    "composition", "music video", "tour", "soundtrack", 
+    "single", "festival", "composer", "producer", "studio", 
+    "acoustic", "electronic", "instrument", "record", "music industry", 
+    "musician", "orchestra", "vocal", "instrumental", "beat", 
+    "music production", "hit", "chart", "sound", "remix",
+    "dj", "bandcamp", "album art", "rehearsal", "sheet music", 
+    "performance", "release date", "music news", "pop", "rock", 
+    "classical", "jazz", "hip hop", "rap", "blues", "indie", 
+    "soul", "country", "reggae", "dance music", "electro", 
+    "techno", "house", "EDM", "festival", "tour", "collaboration",
+    "gig", "touring", "songwriter", "record label", "playlist", 
+    "studio session", "sound mixing", "music theory", "band rehearsal"
     ];
 
     useEffect(() => {
-        fetch(`https://newsapi.org/v2/everything?q=EDM&apiKey=` + keywords[1] + num1)
+        fetch("https://saurav.tech/NewsAPI/top-headlines/category/business/us.json")
             .then((res) => res.json())
             .then((data) => {
                 // Filter articles based on keywords in content, title, or description
