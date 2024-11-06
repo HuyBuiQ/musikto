@@ -1,4 +1,5 @@
 import Post from '../../../../lib/models/Post';
+import User from '../../../../lib/models/User';
 import { connectToDB } from '../../../../lib/mongodb/mongoose';
 import { currentUser } from '@clerk/nextjs/server';
 
@@ -13,25 +14,40 @@ export const PUT = async (req) => {
       return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
     }
 
-    const post = await Post.findById(data.postId);
+    const userMongoId = user.publicMetadata.userMongoId;
+    const postId = data.postId;
 
-    if (post.likes.includes(user.publicMetadata.userMongoId)) {
-      const updatedPost = await Post.findByIdAndUpdate(
-        data.postId,
-        { $pull: { likes: user.publicMetadata.userMongoId } },
-        { new: true }
-      );
-      return new Response(JSON.stringify(updatedPost), { status: 200, headers: { 'Content-Type': 'application/json' } });
-    } else {
-      const updatedPost = await Post.findByIdAndUpdate(
-        data.postId,
-        { $addToSet: { likes: user.publicMetadata.userMongoId } },
-        { new: true }
-      );
-      return new Response(JSON.stringify(updatedPost), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    // Find the post and the user
+    const post = await Post.findById(postId);
+    const userDoc = await User.findById(userMongoId);
+
+    if (!post || !userDoc) {
+      return new Response(JSON.stringify({ message: 'Post or User not found' }), { status: 404 });
     }
+
+    // Check if the post is already liked by the user
+    const isLiked = post.likes.includes(userMongoId);
+
+    if (isLiked) {
+      // Unlike the post: remove the user's ID from post.likes and post ID from user.likedPosts
+      post.likes.pull(userMongoId);
+      userDoc.likedPosts.pull(postId);
+    } else {
+      // Like the post: add the user's ID to post.likes and post ID to user.likedPosts
+      post.likes.addToSet(userMongoId);
+      userDoc.likedPosts.addToSet(postId);
+    }
+
+    // Save the updated user and post
+    await post.save();
+    await userDoc.save();
+
+    return new Response(JSON.stringify(post), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
-    console.log('Error liking post:', error);
-    return new Response(JSON.stringify({ message: 'Error liking post' }), { status: 500 });
+    console.log('Error liking/unliking post:', error);
+    return new Response(JSON.stringify({ message: 'Error liking/unliking post' }), { status: 500 });
   }
 };

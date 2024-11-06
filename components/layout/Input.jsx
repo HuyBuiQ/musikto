@@ -99,7 +99,7 @@ export default function Input() {
 
       <div className='w-full '>
         <textarea
-          className='w-full border-none outline-none tracking-wide min-h-[200px] text-gray-700 mb-4 '
+          className='w-full border-none outline-none tracking-wide min-h-[100px] text-gray-700 mb-4 '
           placeholder='What’s happening?'
           rows='2'
           value={text}
@@ -115,7 +115,7 @@ export default function Input() {
               }}
               src={fileUrl}
               alt='selected-img'
-              className={`w-full max-h-[200px] object-cover cursor-pointer ${fileUploading ? 'animate-pulse' : ''
+              className={`w-full object-cover cursor-pointer ${fileUploading ? 'animate-pulse' : ''
                 }`}
             />
           ) : (

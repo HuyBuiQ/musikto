@@ -1,9 +1,10 @@
 import { HiArrowLeft } from 'react-icons/hi';
 import Link from 'next/link';
-import Post from '../../../../components/layout/Post';
-import FollowButton from '../../../../components/layout/FollowButton';
+import Post from '../../../../../components/layout/Post';
+import FollowButton from '../../../../../components/layout/FollowButton';
 
-export default async function UserPage({ params }) {
+
+export default async function UserPostsPage({ params }) {
   let data = null;
   try {
     const result = await fetch(process.env.URL + '/api/user/get', {
@@ -48,19 +49,23 @@ export default async function UserPage({ params }) {
               </div>
             </div>
 
-            <div className='my-4 flex space-x-4'>
-              <div>
+            <div className='mt-4 mb-8 flex space-x-4'>
+            <Link href={`/users/${data.username}/posts`}>
+              <div className='border-b-2 border-black hover:border-black'>
                 <span className='font-bold'>{data.posts.length}</span> Posts
               </div>
-              <div>
-                <span className='font-bold'>{data.following.length}</span>{' '}
-                Following
-              </div>
-              <div>
-                <span className='font-bold'>{data.followers.length}</span>{' '}
-                Followers
-              </div>
-
+              </Link>
+              <Link href={`/users/${data.username}/following`}>
+                <div className='border-b-2 hover:border-black'>
+                  <span className='font-bold'>{data.following.length}</span>{' '}
+                  Following
+                </div></Link>
+              <Link href={`/users/${data.username}/followers`}>
+                <div className='border-b-2 hover:border-black'>
+                  <span className='font-bold'>{data.followers.length}</span>{' '}
+                  Followers
+                </div>
+              </Link>
             </div>
             <div className='mt-4 flex-1'>
               <FollowButton user={data} />
@@ -68,6 +73,7 @@ export default async function UserPage({ params }) {
           </div>
         </div>
       )}
+      
       {data &&
         data.posts &&
         data.posts.map((post) => {

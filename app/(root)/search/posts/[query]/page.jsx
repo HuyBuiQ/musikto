@@ -25,23 +25,27 @@ const SearchPost = () => {
     getSearchedPosts();
   }, [query]);
 
-  const { user, isLoaded } = useUser();
-  console.log(searchedPosts)
+
 
   return (
     <div className="flex flex-col gap-10">
       <div className="flex gap-6">
-        <Link className="tab bg-black-2" href={`/search/posts/${query}`}>
-          Posts
+        <Link className=" text-black-2 border-b-2 border-black" href={`/search/posts/${query}`}>
+        <p className="text-black">Posts</p>
         </Link>
-        <Link className="tab bg-light-2" href={`/search/people/${query}`}>
-          People
+        <Link className=" border-b-2" href={`/search/people/${query}`}>
+        <p className="text-black">People</p>
         </Link>
       </div>
+      {searchedPosts.length === 0 ? (
+        <p>No results found</p>
+      ) : (
+        searchedPosts.map((post) => (
+          <Post key={post._id} post={post}/>
+        ))
+      )}
 
-      {searchedPosts.map((post) => (
-        <Post key={post._id} post={post}/>
-      ))}
+      
     </div>
   );
 };

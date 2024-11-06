@@ -10,6 +10,7 @@ import { SignedIn, SignOutButton, useUser } from '@clerk/nextjs'
 
 const Topbar = () => {
   const { user } = useUser();
+  
   const router = useRouter();
   const [search, setSearch] = useState("");
   const handleSubmit = (e) => {
@@ -45,7 +46,7 @@ const Topbar = () => {
         </div>
       </div>
       <div className='flex gap-3'>
-        <SignedIn><Link href={`/users/${user?.username}`}>
+        <SignedIn><Link href={`/users/${user?.username}/posts`}>
           <Image src={user?.imageUrl} width={50} height={50} className='rounded-full' alt='musikto logo' />
 
         </Link></SignedIn>

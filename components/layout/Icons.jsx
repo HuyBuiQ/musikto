@@ -6,18 +6,42 @@ import {
   HiOutlineTrash,
   HiHeart,
 } from 'react-icons/hi';
+import { FaBookmark } from "react-icons/fa";
+import { FaRegBookmark } from "react-icons/fa6";
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { modalAtom, postIdAtom } from '../../atom/modalAtom';
 import { useRecoilState } from 'recoil';
+
 export default function Icons({ post }) {
   const [isLiked, setIsLiked] = useState(false);
+  const [userData, setUserData] = useState({ savedPosts: [] });
+  const isSaved = userData?.savedPosts?.find((item) => item._id === post._id);
+  console.log("isSaved:",isSaved)
+
+  
   const [likes, setLikes] = useState(post.likes || []);
   const [open, setOpen] = useRecoilState(modalAtom);
   const [postId, setPostId] = useRecoilState(postIdAtom);
   const { user } = useUser();
   const router = useRouter();
+
+  const savePost = async () => {
+    const response = await fetch(
+      `/api/user/save/${post._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    setUserData(data);
+    update()
+  };
+  
 
   const likePost = () => {
     if (!user) {
@@ -103,6 +127,20 @@ export default function Icons({ post }) {
           <span className='text-xs'>{post.comments.length}</span>
         )}
       </div>
+      {/* <div className='flex items-center'>
+        {isSaved ? (
+          <FaBookmark
+          onClick={() => savePost()}
+            className='h-8 w-10 cursor-pointer rounded-full  transition duration-500 ease-in-out p-2  hover:text-black-2 hover:bg-light-4'
+          />
+        ) : (
+          <FaRegBookmark
+          onClick={() => savePost()}
+            className='h-8 w-10 cursor-pointer rounded-full   transition duration-500 ease-in-out p-2 hover:text-black-2 hover:bg-light-4'
+          />
+        )}
+        
+      </div> */}
       {user && user.publicMetadata.userMongoId === post.user && (
         <HiOutlineTrash
           onClick={deletePost}
