@@ -10,7 +10,7 @@ export default function News() {
   ];
 
   useEffect(() => {
-    fetch(`https://newsapi.org/v2/everything?q=EDM&apiKey=c9c890398e5f410787e4d1bdb05eaf3c`)
+    fetch(`https://newsapi.org/v2/everything?q=EDM&apiKey=${process.env.NEWS_API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         // Filter articles based on keywords in content, title, or description
