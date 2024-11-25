@@ -13,10 +13,10 @@ const LikedPosts = () => {
             const response = await fetch(`/api/user/${user.id}`);
             const userData = await response.json();
 
-            // Assuming userData.likedPosts contains post IDs
+            
             const likedPostIds = userData?.likedPosts || [];
 
-            // Fetch detailed information for each liked post
+            
             const postDetailsPromises = likedPostIds.map(postId =>
                 fetch('/api/post/get', {
                     method: 'POST',

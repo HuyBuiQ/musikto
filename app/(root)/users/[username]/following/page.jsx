@@ -28,15 +28,15 @@ export default async function UserPostsPage({ params }) {
         data.following.map(async (followId) => {
           const response = await fetch(`${process.env.URL}/api/user/getByID`, {
             method: 'POST',
-            body: JSON.stringify({ id: followId }), // Pass the followId here
+            body: JSON.stringify({ id: followId }),
             headers: {
-              'Content-Type': 'application/json', // Set the content type
+              'Content-Type': 'application/json', 
             },
           });
           return response.json();
         })
       );
-      data.following = followingDetails; // Replace IDs with full user data
+      data.following = followingDetails;
     }
 
 

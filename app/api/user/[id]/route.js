@@ -11,7 +11,7 @@ export const GET = async (req, { params }) => {
       
       .exec();
 
-    console.log("USER ĐÂY",user)
+    // console.log("USER ĐÂY",user)
     return new Response(JSON.stringify(user), { status: 200 });
   } catch (err) {
     console.error(err);

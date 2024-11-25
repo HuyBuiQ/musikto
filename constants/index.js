@@ -90,7 +90,7 @@ export const pageTitles = [
   },
   {
     url: "/followed",
-    title: "F-Feed",
+    title: "Followed",
   },
 ];
 
