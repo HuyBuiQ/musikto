@@ -18,7 +18,7 @@ export default function Icons({ post }) {
   const [isLiked, setIsLiked] = useState(false);
   const [userData, setUserData] = useState({ savedPosts: [] });
   const isSaved = userData?.savedPosts?.find((item) => item._id === post._id);
-  console.log("isSaved:",isSaved)
+  // console.log("isSaved:",isSaved)
 
   
   const [likes, setLikes] = useState(post.likes || []);

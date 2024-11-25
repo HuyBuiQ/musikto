@@ -4,9 +4,11 @@ import {
   AddPhotoAlternateOutlined,
   GroupOutlined,
   BookmarksOutlined,
+  PeopleOutlineOutlined,
   FavoriteBorder,
   ExploreOutlined,
   ChatOutlined,
+  FavoriteBorderOutlined
 } from "@mui/icons-material";
 
 export const sidebarLinks = [
@@ -16,19 +18,20 @@ export const sidebarLinks = [
     label: "Home",
   },
   {
-    icon: <ExploreOutlined sx={{ color: "black", fontSize: "26px" }} />,
-    route: "/explore",
-    label: "Explore",
-  },
-  {
     icon: <AddPhotoAlternateOutlined sx={{ color: "black", fontSize: "26px" }} />,
     route: "/create-post",
     label: "Create Post",
   },
   {
-    icon: <ChatOutlined sx={{ color: "black", fontSize: "26px" }} />,
-    route: "/chat",
-    label: "Chat",
+    icon: <PeopleOutlineOutlined sx={{ color: "black", fontSize: "26px" }} />,
+    route: "/followed",
+    label: "Followed",
+  },
+  
+  {
+    icon: <FavoriteBorderOutlined sx={{ color: "black", fontSize: "26px" }} />,
+    route: "/liked-posts",
+    label: "Liked Post",
   }
 ];
 
@@ -84,7 +87,11 @@ export const pageTitles = [
   {
     url: "/liked-posts",
     title: "Liked Posts",
-  }
+  },
+  {
+    url: "/followed",
+    title: "F-Feed",
+  },
 ];
 
 export const tabs = [

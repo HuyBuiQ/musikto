@@ -1,3 +1,4 @@
+
 import Post from './Post';
 
 export default function Feed({ data }) {

@@ -4,6 +4,7 @@ export const POST = async (req) => {
     try {
       await connectToDB();
       const feedPosts = await Post.find().sort({ createdAt: -1 });
+      // console.log("all post đây",feedPosts)
       return new Response(JSON.stringify(feedPosts), {
         status: 200,
       });

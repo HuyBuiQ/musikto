@@ -10,7 +10,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import { CloudUploadOutlined } from '@mui/icons-material';
+import { CloudUploadOutlined, BackupOutlined } from '@mui/icons-material';
 
 export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -124,11 +124,12 @@ export default function Input() {
         )}
 
         <div className='flex items-center justify-between pt-2.5 m-4'>
-
-          <CloudUploadOutlined
-            className='h-10 w-10 p-2 text-black hover:bg-sky-100 rounded-full cursor-pointer'
+        <button><BackupOutlined
+            className='h-12 w-12 p-2 text-black hover:bg-sky-100 rounded-full cursor-pointer'
             onClick={() => filePickRef.current.click()}
-          />
+          /></button>
+
+          
           <input
             type='file'
             ref={filePickRef}
