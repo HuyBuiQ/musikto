@@ -12,7 +12,7 @@ export default function Page() {
                 
                 <div className="w-1/2 flex items-center justify-center">
                     <img
-                        src="images/women_music_producer.jpg"
+                        src="https://miro.medium.com/v2/resize:fit:1400/1*iavfvAjS2XQ4wJqZRT8t9Q.jpeg"
                         alt="cover"
                         className="hidden xl:block h-screen w-full object-cover bg-no-repeat"
 
